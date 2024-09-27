@@ -7,6 +7,7 @@ from models import session, Cow, LactationRecord, Employee, Customer, SalesRecor
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from datetime import datetime
 
 Base = declarative_base()
 engine = create_engine('sqlite:///dairy_farm.db')
@@ -114,12 +115,14 @@ class DairyFarm:
             cow_id = int(cow_id)
             milk_produced = float(milk_produced)
 
+            record_date = datetime.strptime(date, "%Y-%m-%d").date()
+
             cow = self.session.query(Cow).get(cow_id)
             if not cow:
                 print(f"Cow with ID {cow_id} not found!")
                 return
 
-            lactation_record = LactationRecord(date=date, milk_produced=milk_produced, cow=cow)
+            lactation_record = LactationRecord(date=record_date, milk_produced=milk_produced, cow=cow)
             self.session.add(lactation_record)
             self.session.commit()
             print(f"Lactation record for cow '{cow.name}' added successfully!")
