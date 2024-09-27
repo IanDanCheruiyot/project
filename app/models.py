@@ -64,3 +64,25 @@ class Customer(Base):
 
     def __repr__(self):
         return f"<Customer(name={self.name}, contact_info={self.contact_info})>"
+    
+# SalesRecord Model
+class SalesRecord(Base):
+    __tablename__ = 'sales_records'
+    
+    id = Column(Integer, primary_key=True)
+    sale_date = Column(Date, nullable=False)
+    quantity_sold = Column(Float, nullable=False)  # Quantity of milk sold in liters
+    price = Column(Float, nullable=False)  # Sale price for the quantity sold
+    cow_id = Column(Integer, ForeignKey('cows.id'), nullable=False)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    employee_id = Column(Integer, ForeignKey('employees.id'), nullable=False)
+
+    # Relationships
+    cow = relationship("Cow", back_populates="sales_records")
+    customer = relationship("Customer", back_populates="sales_records")
+    employee = relationship("Employee", back_populates="sales_records")
+
+    def __repr__(self):
+        return (f"<SalesRecord(cow={self.cow.name}, customer={self.customer.name}, "
+                f"employee={self.employee.name}, sale_date={self.sale_date}, "
+                f"quantity_sold={self.quantity_sold}, price={self.price})>")
