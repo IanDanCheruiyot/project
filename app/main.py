@@ -52,3 +52,24 @@ def add_employee():
     session.add(employee)
     session.commit()
     print(f"Employee '{name}' added successfully!")
+
+# View All Employees
+def view_all_employees():
+    employees = session.query(Employee).all()
+    if employees:
+        for employee in employees:
+            print(f"ID: {employee.id}, Name: {employee.name}, Position: {employee.position}")
+    else:
+        print("No employees found!")
+
+# Delete Employee
+def delete_employee():
+    employee_id = int(input("Enter employee ID to delete: "))
+    employee = session.query(Employee).get(employee_id)
+
+    if employee:
+        session.delete(employee)
+        session.commit()
+        print(f"Employee with ID {employee_id} deleted successfully!")
+    else:
+        print(f"Employee with ID {employee_id} not found!")
