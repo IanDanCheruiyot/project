@@ -22,7 +22,7 @@ class Cow(Base):
     def __repr__(self):
         return f"<Cow(name={self.name}, breed={self.breed})>"
     
-    # LactationRecord Model
+# LactationRecord Model
 class LactationRecord(Base):
     __tablename__ = 'lactation_records'
     
@@ -36,3 +36,17 @@ class LactationRecord(Base):
 
     def __repr__(self):
         return f"<LactationRecord(cow={self.cow.name}, date={self.date}, milk_produced={self.milk_produced})>"
+    
+# Employee Model
+class Employee(Base):
+    __tablename__ = 'employees'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    position = Column(String, nullable=False)
+    
+    # Relationship to SalesRecord
+    sales_records = relationship("SalesRecord", back_populates="employee", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Employee(name={self.name}, position={self.position})>"
