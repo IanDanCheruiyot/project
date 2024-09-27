@@ -86,3 +86,9 @@ class SalesRecord(Base):
         return (f"<SalesRecord(cow={self.cow.name}, customer={self.customer.name}, "
                 f"employee={self.employee.name}, sale_date={self.sale_date}, "
                 f"quantity_sold={self.quantity_sold}, price={self.price})>")
+
+# Database setup
+engine = create_engine('sqlite:///dairy_farm.db')
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
