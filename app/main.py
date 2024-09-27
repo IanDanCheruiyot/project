@@ -38,3 +38,17 @@ def delete_cow():
         print(f"Cow with ID {cow_id} deleted successfully!")
     else:
         print(f"Cow with ID {cow_id} not found!")
+
+# Add Employee
+def add_employee():
+    name = input("Enter employee name: ").strip()
+    position = input("Enter employee position: ").strip()
+
+    if not name or not position:
+        print("Name and position are required.")
+        return
+
+    employee = Employee(name=name, position=position)
+    session.add(employee)
+    session.commit()
+    print(f"Employee '{name}' added successfully!")
