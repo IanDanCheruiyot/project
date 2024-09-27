@@ -73,3 +73,42 @@ def delete_employee():
         print(f"Employee with ID {employee_id} deleted successfully!")
     else:
         print(f"Employee with ID {employee_id} not found!")
+
+# Add Lactation Record
+def add_lactation_record():
+    cow_id = int(input("Enter cow ID: "))
+    date = input("Enter record date (YYYY-MM-DD): ").strip()
+    milk_produced = float(input("Enter milk produced (liters): "))
+
+    cow = session.query(Cow).get(cow_id)
+    if not cow:
+        print(f"Cow with ID {cow_id} not found!")
+        return
+
+    lactation_record = LactationRecord(date=date, milk_produced=milk_produced, cow=cow)
+    session.add(lactation_record)
+    session.commit()
+    print(f"Lactation record for cow '{cow.name}' added successfully!")
+
+# View All Lactation Records
+def view_all_lactation_records():
+    records = session.query(LactationRecord).all()
+    if records:
+        for record in records:
+            print(f"ID: {record.id}, Date: {record.date}, Milk Produced: {record.milk_produced}L, Cow: {record.cow.name}")
+    else:
+        print("No lactation records found!")
+
+# Delete Lactation Record
+def delete_lactation_record():
+    record_id = int(input("Enter lactation record ID to delete: "))
+    record = session.query(LactationRecord).get(record_id)
+
+    if record:
+        session.delete(record)
+        session.commit()
+        print(f"Lactation record with ID {record_id} deleted successfully!")
+    else:
+        print(f"Lactation record with ID {record_id} not found!")
+
+        
