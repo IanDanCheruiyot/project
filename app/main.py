@@ -26,3 +26,15 @@ def view_all_cows():
             print(f"ID: {cow.id}, Name: {cow.name}, Breed: {cow.breed}")
     else:
         print("No cows found!")
+
+# Delete Cow
+def delete_cow():
+    cow_id = int(input("Enter cow ID to delete: "))
+    cow = session.query(Cow).get(cow_id)
+
+    if cow:
+        session.delete(cow)
+        session.commit()
+        print(f"Cow with ID {cow_id} deleted successfully!")
+    else:
+        print(f"Cow with ID {cow_id} not found!")
