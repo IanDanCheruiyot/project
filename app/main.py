@@ -152,8 +152,7 @@ class DairyFarm:
             table.add_column("Milk Produced (L)", style="green")
             table.add_column("Cow", style="yellow")
             for record in records:
-                table.add_row(str(record.id), record.date, str(record.milk_produced), record.cow.name)
-            self.console.print(table)
+                table.add_row(str(record.id), record.date.strftime("%Y-%m-%d"), str(record.milk_produced), record.cow.name)
         else:
             print("No lactation records found!")
 
