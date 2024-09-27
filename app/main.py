@@ -111,4 +111,46 @@ def delete_lactation_record():
     else:
         print(f"Lactation record with ID {record_id} not found!")
 
-        
+# Add Customer
+def add_customer():
+    name = input("Enter customer name: ").strip()
+    contact_info = input("Enter customer contact info: ").strip()
+
+    if not name:
+        print("Customer name is required.")
+        return
+
+    customer = Customer(name=name, contact_info=contact_info)
+    session.add(customer)
+    session.commit()
+    print(f"Customer '{name}' added successfully!")
+
+# Generate Sales Record
+def generate_sales_record():
+    cow_id = int(input("Enter cow ID: "))
+    customer_id = int(input("Enter customer ID: "))
+    employee_id = int(input("Enter employee ID: "))
+    sale_date = input("Enter sale date (YYYY-MM-DD): ")
+    quantity_sold = float(input("Enter milk quantity sold (in liters): "))
+    price = float(input("Enter sale price (total): "))
+
+    cow = session.query(Cow).get(cow_id)
+    customer = session.query(Customer).get(customer_id)
+    employee = session.query(Employee).get(employee_id)
+
+    if not cow or not customer or not employee:
+        print("Invalid cow, customer, or employee ID.")
+        return
+
+    sale = SalesRecord(sale_date=sale_date, quantity_sold=quantity_sold, price=price,
+                       cow=cow, customer=customer, employee=employee)
+    session.add(sale)
+    session.commit()
+    print(f"Sales record added successfully!")
+
+# View Sales Records
+def view_sales_records():
+    sales = session.query(SalesRecord).all()
+    for sale in sales:
+        print(f"Date: {sale.sale_date}, Quantity: {sale.quantity_sold}L, Price: {sale.price}")
+        print(f"Cow: {sale.cow.name}, Customer: {sale.customer.name}, Employee: {sale.employee.name}\n")
