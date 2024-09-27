@@ -50,3 +50,17 @@ class Employee(Base):
 
     def __repr__(self):
         return f"<Employee(name={self.name}, position={self.position})>"
+    
+# Customer Model
+class Customer(Base):
+    __tablename__ = 'customers'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    contact_info = Column(String, nullable=False)
+    
+    # Relationship to SalesRecord
+    sales_records = relationship("SalesRecord", back_populates="customer", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Customer(name={self.name}, contact_info={self.contact_info})>"
