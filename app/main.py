@@ -154,3 +154,53 @@ def view_sales_records():
     for sale in sales:
         print(f"Date: {sale.sale_date}, Quantity: {sale.quantity_sold}L, Price: {sale.price}")
         print(f"Cow: {sale.cow.name}, Customer: {sale.customer.name}, Employee: {sale.employee.name}\n")
+
+# Main CLI menu
+def menu():
+    while True:
+        print("\n--- Dairy Farm Management ---")
+        print("1. Add Cow")
+        print("2. View All Cows")
+        print("3. Delete Cow")
+        print("4. Add Employee")
+        print("5. View All Employees")
+        print("6. Delete Employee")
+        print("7. Add Lactation Record")
+        print("8. View All Lactation Records")
+        print("9. Delete Lactation Record")
+        print("10. Add Customer")
+        print("11. Generate Sales Record")
+        print("12. View Sales Records")
+        print("0. Exit")
+        
+        choice = input("Choose an option: ").strip()
+        
+        if choice == '1':
+            add_cow()
+        elif choice == '2':
+            view_all_cows()
+        elif choice == '3':
+            delete_cow()
+        elif choice == '4':
+            add_employee()
+        elif choice == '5':
+            view_all_employees()
+        elif choice == '6':
+            delete_employee()
+        elif choice == '7':
+            add_lactation_record()
+        elif choice == '8':
+            view_all_lactation_records()
+        elif choice == '9':
+            delete_lactation_record()
+        elif choice == '10':
+            add_customer()
+        elif choice == '11':
+            generate_sales_record()
+        elif choice == '12':
+            view_sales_records()
+        elif choice == '0':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid option. Try again.")
