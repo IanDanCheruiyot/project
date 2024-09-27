@@ -215,6 +215,8 @@ class DairyFarm:
             quantity_sold = float(quantity_sold)
             price = float(price)
 
+            sale_date = datetime.strptime(sale_date, "%Y-%m-%d").date()
+
             cow = self.session.query(Cow).get(cow_id)
             customer = self.session.query(Customer).get(customer_id)
             employee = self.session.query(Employee).get(employee_id)
