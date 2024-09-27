@@ -153,6 +153,7 @@ class DairyFarm:
             table.add_column("Cow", style="yellow")
             for record in records:
                 table.add_row(str(record.id), record.date.strftime("%Y-%m-%d"), str(record.milk_produced), record.cow.name)
+                self.console.print(table)
         else:
             print("No lactation records found!")
 
@@ -244,8 +245,8 @@ class DairyFarm:
             table.add_column("Customer", style="yellow")
             table.add_column("Employee", style="yellow")
             for sale in sales:
-                table.add_row(sale.sale_date, str(sale.quantity_sold), f"${sale.price:.2f}",
-                              sale.cow.name, sale.customer.name, sale.employee.name)
+                sale_date_str = sale.sale_date.strftime("%Y-%m-%d")
+            table.add_row(sale_date_str, str(sale.quantity_sold), f"${sale.price:.2f}",sale.cow.name, sale.customer.name, sale.employee.name)
             self.console.print(table)
         else:
             print("No sales records found!")
